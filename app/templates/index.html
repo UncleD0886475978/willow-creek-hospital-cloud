@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Willow Creek Regional Hospital</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f7f6;
+      color: #1a2e2a;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #0b4f4a;
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    header h1 { margin: 0; font-size: 2.2rem; }
+    header p { margin-top: 8px; color: #cde8e3; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 30px 20px; }
+    .dept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .dept-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border-left: 5px solid #0b4f4a;
+    }
+    .dept-card.support { border-left-color: #b58a1c; }
+    .dept-card h2 { margin-top: 0; font-size: 1.2rem; color: #0b4f4a; }
+    .dept-card .category {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+    .staff-list { list-style: none; padding: 0; margin: 10px 0 0; }
+    .staff-list li { padding: 4px 0; font-size: 0.9rem; }
+    .tier-Director { font-weight: bold; }
+    .tier-Manager { color: #333; }
+    .tier-Staff { color: #666; }
+    footer { text-align: center; padding: 30px; color: #888; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Willow Creek Regional Hospital</h1>
+    <p>Serving our community with care, integrity, and 24/7 dedication.</p>
+  </header>
+  <div class="container">
+    <div class="dept-grid">
+      {% for name, dept in departments.items() %}
+      <div class="dept-card {{ 'support' if dept.category == 'Support' else '' }}">
+        <span class="category">{{ dept.category }}</span>
+        <h2>{{ name }}</h2>
+        <p>{{ dept.description }}</p>
+        <ul class="staff-list">
+          {% for person in dept.staff %}
+          <li class="tier-{{ person.tier }}">{{ person.name }} — {{ person.role }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <footer>
+    &copy; Willow Creek Regional Hospital — Staff Directory Portal
+  </footer>
+</body>
+</html>
